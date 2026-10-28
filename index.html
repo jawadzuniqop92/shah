@@ -5,7 +5,2527 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CAMBRIDGE OPTICIANS — Optical Shop Management System</title>
   <style>
+    :root {<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cambridge Opticians — Shop Management System</title>
+  <style>
     :root {
+      --bg-main: #f4f6f9;
+      --bg-card: #ffffff;
+      --bg-muted: #f8fafc;
+      --navy-dark: #0f2537;
+      --navy-primary: #163a59;
+      --navy-hover: #1f4e78;
+      --navy-light: #e8eff5;
+      --text-main: #1e293b;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --border-color: #cbd5e1;
+      --border-light: #e2e8f0;
+      --green-bg: #dcfce7;
+      --green-text: #166534;
+      --green-border: #86efac;
+      --green-btn: #15803d;
+      --orange-bg: #ffedd5;
+      --orange-text: #9a3412;
+      --orange-border: #fdba74;
+      --red-bg: #fee2e2;
+      --red-text: #991b1b;
+      --red-border: #fca5a5;
+      --red-btn: #b91c1c;
+      --shadow-sm: 0 1px 3px rgba(15, 37, 55, 0.08);
+      --shadow-md: 0 4px 12px rgba(15, 37, 55, 0.12);
+      --radius: 8px;
+      --sidebar-width: 260px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-size: 15px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Logo Styling Rules */
+    .brand-logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .brand-logo {
+      max-height: 44px;
+      max-width: 180px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .login-logo {
+      max-height: 84px;
+      max-width: 260px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      margin: 0 auto 16px auto;
+      display: block;
+    }
+    .sidebar-logo {
+      max-height: 54px;
+      max-width: 210px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+    .invoice-logo {
+      max-height: 72px;
+      max-width: 240px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .report-logo {
+      max-height: 60px;
+      max-width: 200px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .logo-fallback {
+      display: none;
+      font-weight: 800;
+      color: var(--navy-dark);
+      letter-spacing: 0.4px;
+      border: 2px solid var(--navy-primary);
+      padding: 6px 14px;
+      border-radius: 6px;
+      background: #fff;
+      text-align: center;
+      font-size: 16px;
+    }
+    .sidebar-logo-container .logo-fallback {
+      color: #ffffff;
+      border-color: #ffffff;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Login Screen */
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: #e2e8f0;
+    }
+    .login-card {
+      background: var(--bg-card);
+      width: 100%;
+      max-width: 460px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      padding: 32px;
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .login-header h1 {
+      font-size: 22px;
+      color: var(--navy-dark);
+      margin-top: 8px;
+      font-weight: 700;
+    }
+    .login-header p {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .demo-credentials-box {
+      background: var(--navy-light);
+      border: 1px solid #b6cde3;
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+    .demo-credentials-box strong {
+      color: var(--navy-dark);
+      display: block;
+      margin-bottom: 6px;
+    }
+    .demo-role-pills {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    /* Layout Structure */
+    #app-shell {
+      display: none;
+      min-height: 100vh;
+    }
+    .app-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--navy-dark);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      border-right: 1px solid #091724;
+    }
+    .sidebar-logo-container {
+      padding: 20px 16px;
+      background: #ffffff;
+      border-bottom: 2px solid var(--border-color);
+      text-align: center;
+    }
+    .sidebar-brand-subtitle {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-top: 6px;
+    }
+    .sidebar-nav {
+      padding: 16px 12px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 14px 16px;
+      border: none;
+      background: transparent;
+      color: #cbd5e1;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: left;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-item svg {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+    }
+    .nav-item.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    }
+    .sidebar-footer {
+      padding: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.15);
+      font-size: 13px;
+    }
+    .role-badge-sidebar {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      background: #fbbf24;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    /* Main Content Area */
+    .main-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .topbar {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .topbar-title h2 {
+      font-size: 20px;
+      color: var(--navy-dark);
+      font-weight: 700;
+    }
+    .topbar-title p {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .demo-banner-pill {
+      background: var(--orange-bg);
+      color: var(--orange-text);
+      border: 1px solid var(--orange-border);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .content-container {
+      padding: 24px;
+      flex: 1;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Sub-navigation / Category Cards */
+    .subnav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .subnav-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      text-align: left;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy-dark);
+      box-shadow: var(--shadow-sm);
+    }
+    .subnav-card svg {
+      width: 32px;
+      height: 32px;
+      color: var(--navy-primary);
+      flex-shrink: 0;
+    }
+    .subnav-card:hover {
+      border-color: var(--navy-primary);
+      background: var(--navy-light);
+    }
+    .subnav-card.active {
+      background: var(--navy-primary);
+      color: #ffffff;
+      border-color: var(--navy-dark);
+    }
+    .subnav-card.active svg {
+      color: #ffffff;
+    }
+
+    /* Dashboard Cards & Grids */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .stat-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      background: var(--navy-light);
+      color: var(--navy-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .stat-icon svg {
+      width: 30px;
+      height: 30px;
+    }
+    .stat-icon.green { background: var(--green-bg); color: var(--green-text); }
+    .stat-icon.orange { background: var(--orange-bg); color: var(--orange-text); }
+    .stat-icon.red { background: var(--red-bg); color: var(--red-text); }
+    .stat-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .stat-label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+    .stat-value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--navy-dark);
+      word-break: break-word;
+    }
+    .stat-sub {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Quick Action Large Buttons */
+    .quick-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .quick-action-btn {
+      background: var(--bg-card);
+      border: 2px solid var(--navy-primary);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      color: var(--navy-dark);
+      font-size: 16px;
+      font-weight: 700;
+      box-shadow: var(--shadow-sm);
+    }
+    .quick-action-btn svg {
+      width: 34px;
+      height: 34px;
+      color: var(--navy-primary);
+    }
+    .quick-action-btn:hover {
+      background: var(--navy-primary);
+      color: #ffffff;
+    }
+    .quick-action-btn:hover svg {
+      color: #ffffff;
+    }
+
+    /* Panels & Cards */
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 16px 20px;
+      background: var(--bg-muted);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .panel-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .panel-title svg {
+      width: 24px;
+      height: 24px;
+      color: var(--navy-primary);
+    }
+    .panel-body {
+      padding: 20px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn svg {
+      width: 19px;
+      height: 19px;
+      flex-shrink: 0;
+    }
+    .btn-lg {
+      padding: 13px 22px;
+      font-size: 16px;
+    }
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 13.5px;
+    }
+    .btn-primary {
+      background: var(--navy-primary);
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      background: var(--navy-hover);
+    }
+    .btn-success {
+      background: var(--green-btn);
+      color: #ffffff;
+    }
+    .btn-success:hover {
+      background: #166534;
+    }
+    .btn-danger {
+      background: var(--red-btn);
+      color: #ffffff;
+    }
+    .btn-danger:hover {
+      background: #991b1b;
+    }
+    .btn-outline {
+      background: #ffffff;
+      border-color: var(--border-color);
+      color: var(--text-main);
+    }
+    .btn-outline:hover {
+      background: var(--bg-muted);
+      border-color: var(--navy-primary);
+    }
+
+    /* Forms & Inputs */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+    label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy-dark);
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    input[type="month"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 15px;
+      color: var(--text-main);
+      background: #ffffff;
+      font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid var(--navy-primary);
+      border-color: var(--navy-primary);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+    .field-hint {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* Status Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+    .badge-paid, .badge-success {
+      background: var(--green-bg);
+      color: var(--green-text);
+      border-color: var(--green-border);
+    }
+    .badge-partial, .badge-warning {
+      background: var(--orange-bg);
+      color: var(--orange-text);
+      border-color: var(--orange-border);
+    }
+    .badge-unpaid, .badge-danger {
+      background: var(--red-bg);
+      color: var(--red-text);
+      border-color: var(--red-border);
+    }
+    .badge-neutral {
+      background: var(--navy-light);
+      color: var(--navy-dark);
+      border-color: #b6cde3;
+    }
+
+    /* Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th {
+      background: var(--bg-muted);
+      color: var(--navy-dark);
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 12px 14px;
+      border-bottom: 2px solid var(--border-color);
+      white-space: nowrap;
+    }
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 14.5px;
+      vertical-align: middle;
+    }
+    tr:hover td {
+      background: #f8fafc;
+    }
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+    .empty-state {
+      text-align: center;
+      padding: 36px 20px;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    /* Alerts & Banners */
+    .alert {
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+      border: 1px solid transparent;
+      font-size: 14.5px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .alert-info {
+      background: var(--navy-light);
+      color: var(--navy-dark);
+      border-color: #b6cde3;
+    }
+    .alert-success {
+      background: var(--green-bg);
+      color: var(--green-text);
+      border-color: var(--green-border);
+    }
+    .alert-warning {
+      background: var(--orange-bg);
+      color: var(--orange-text);
+      border-color: var(--orange-border);
+    }
+    .alert-danger {
+      background: var(--red-bg);
+      color: var(--red-text);
+      border-color: var(--red-border);
+    }
+
+    /* Toast Notification */
+    #toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 380px;
+    }
+    .toast {
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      background: var(--navy-dark);
+      color: #fff;
+      box-shadow: var(--shadow-md);
+      font-weight: 600;
+      font-size: 14.5px;
+      border-left: 5px solid #38bdf8;
+    }
+    .toast.success { border-left-color: #22c55e; }
+    .toast.error { background: var(--red-btn); border-left-color: #fca5a5; }
+    .toast.warning { border-left-color: #f59e0b; }
+
+    /* Modal System */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 37, 55, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 2000;
+      overflow-y: auto;
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .modal-content {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      max-width: 860px;
+      width: 100%;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+    }
+    .modal-header {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-muted);
+    }
+    .modal-header h3 {
+      font-size: 18px;
+      color: var(--navy-dark);
+    }
+    .modal-body {
+      padding: 22px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-footer {
+      padding: 14px 22px;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-muted);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Prescription Box */
+    .rx-box {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      background: #f8fafc;
+      margin: 16px 0;
+      overflow: hidden;
+    }
+    .rx-toggle-header {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--navy-primary);
+      background: var(--navy-light);
+    }
+    .rx-body {
+      padding: 16px;
+      display: none;
+      border-top: 1px solid var(--border-color);
+    }
+    .rx-body.expanded {
+      display: block;
+    }
+
+    /* Invoice Totals Box */
+    .totals-summary-box {
+      background: var(--bg-muted);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 18px;
+      max-width: 420px;
+      margin-left: auto;
+    }
+    .totals-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 15px;
+    }
+    .totals-row.grand-total {
+      border-top: 2px solid var(--navy-dark);
+      margin-top: 8px;
+      padding-top: 10px;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--navy-dark);
+    }
+
+    /* Printable Document Area (Invoice / Report) */
+    .invoice-paper {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 32px;
+      border-radius: var(--radius);
+      color: #0f172a;
+    }
+    .invoice-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      border-bottom: 2px solid var(--navy-dark);
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+    }
+    .invoice-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    /* Winner Card */
+    .winner-card {
+      background: #fffbeb;
+      border: 2px solid #f59e0b;
+      border-radius: var(--radius);
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 960px) {
+      .app-layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+      }
+      .sidebar-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px;
+      }
+      .nav-item {
+        width: auto;
+        white-space: nowrap;
+        padding: 10px 14px;
+      }
+    }
+
+    /* Print Stylesheet */
+    #printable-mount {
+      display: none;
+    }
+    @media print {
+      @page {
+        margin: 12mm;
+      }
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      #login-screen,
+      #app-shell,
+      .modal-backdrop,
+      #toast-container {
+        display: none !important;
+      }
+      #printable-mount {
+        display: block !important;
+        width: 100% !important;
+      }
+      .invoice-paper {
+        border: none !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PRINTABLE MOUNT FOR NATIVE BROWSER PRINTING -->
+  <div id="printable-mount"></div>
+
+  <!-- TOAST NOTIFICATIONS -->
+  <div id="toast-container"></div>
+
+  <!-- 1. LOGIN SCREEN -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="brand-logo-wrap">
+          <img src="./logo.png" alt="Cambridge Opticians Logo" class="login-logo" width="220" height="76"
+               onload="this.style.display='block'; if(this.nextElementSibling) this.nextElementSibling.style.display='none';"
+               onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-block';">
+          <div class="logo-fallback">Cambridge Opticians</div>
+        </div>
+        <h1 id="login-shop-title">Cambridge Opticians</h1>
+        <p>Optical Shop Management &amp; Point of Sale System</p>
+      </div>
+
+      <div class="demo-credentials-box">
+        <strong>Demonstration Access (Click to Fill Credentials):</strong>
+        <p style="margin-bottom:8px;">This front-end demonstration simulates role permissions in browser storage. Real security requires server-side authentication.</p>
+        <div class="demo-role-pills">
+          <button type="button" class="btn btn-outline btn-sm" onclick="App.fillLoginDemo('owner')">
+            Fill Owner Login
+          </button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="App.fillLoginDemo('manager')">
+            Fill Manager Login
+          </button>
+        </div>
+      </div>
+
+      <form id="login-form" onsubmit="App.handleLogin(event)">
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label for="login-username">Select User Role / Username</label>
+          <select id="login-username" required onchange="App.syncDemoPinHint()">
+            <option value="owner">owner — Shop Owner (Full Access + Profit Reports)</option>
+            <option value="manager">manager — Shop Manager (Operations Only)</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label for="login-password">Demonstration Passcode</label>
+          <input type="password" id="login-password" value="owner123" required placeholder="Enter demo passcode">
+          <span class="field-hint" id="login-pin-hint">Demo Passcode: <strong>owner123</strong> (Owner) or <strong>demo123</strong> (Manager)</span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Sign In to System
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. MAIN APPLICATION SHELL -->
+  <div id="app-shell">
+    <div class="app-layout">
+      <!-- FIVE PRIMARY NAVIGATION CATEGORIES SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-logo-container">
+          <img src="./logo.png" alt="Cambridge Opticians Logo" class="sidebar-logo" width="190" height="54"
+               onload="this.style.display='block'; if(this.nextElementSibling) this.nextElementSibling.style.display='none';"
+               onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-block';">
+          <div class="logo-fallback" style="color:var(--navy-dark); border-color:var(--navy-primary);">Cambridge Opticians</div>
+          <div class="sidebar-brand-subtitle" id="sidebar-shop-name">Management System</div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Main Navigation">
+          <button type="button" class="nav-item active" data-nav="dashboard" onclick="App.navigate('dashboard')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>1. Dashboard</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="sales" onclick="App.navigate('sales')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            <span>2. Sales &amp; Customers</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="daily" onclick="App.navigate('daily')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6" y2="8"/><line x1="10" y1="8" x2="18" y2="8"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="6" y1="16" x2="14" y2="16"/></svg>
+            <span>3. Daily Management</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="reports" onclick="App.navigate('reports')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span>4. Reports</span>
+          </button>
+          <button type="button" class="nav-item" data-nav="settings" onclick="App.navigate('settings')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span>5. Settings</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div>Active Role:</div>
+          <div class="role-badge-sidebar" id="sidebar-role-badge">OWNER</div>
+          <div style="margin-bottom: 10px; color: #cbd5e1; font-size: 12px;">
+            Demo Storage: Local Browser
+          </div>
+          <button type="button" class="btn btn-outline btn-sm" style="width:100%;" onclick="App.logout()">
+            Sign Out / Lock
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT AREA -->
+      <div class="main-area">
+        <header class="topbar">
+          <div class="topbar-left">
+            <div class="brand-logo-wrap">
+              <img src="./logo.png" alt="Cambridge Opticians Logo" class="brand-logo" width="140" height="42"
+                   onload="this.style.display='block'; if(this.nextElementSibling) this.nextElementSibling.style.display='none';"
+                   onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-block';">
+              <div class="logo-fallback">Cambridge Opticians</div>
+            </div>
+            <div class="topbar-title">
+              <h2 id="topbar-heading">Dashboard</h2>
+              <p id="topbar-subheading">Overview &amp; Quick Shop Actions</p>
+            </div>
+          </div>
+
+          <div class="topbar-right">
+            <div class="demo-banner-pill" title="Frontend demonstration role switcher">
+              <span>Demo Role:</span>
+              <select id="quick-role-switcher" onchange="App.switchRole(this.value)" style="width:auto; padding:3px 8px; font-size:13px; font-weight:700;">
+                <option value="owner">Owner (Full Access)</option>
+                <option value="manager">Manager (Operations Only)</option>
+              </select>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="App.openNewSaleQuick()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              New Sale
+            </button>
+          </div>
+        </header>
+
+        <main class="content-container" id="main-view-mount">
+          <!-- Dynamic Views Rendered Here -->
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- REUSABLE MODAL -->
+  <div class="modal-backdrop" id="app-modal">
+    <div class="modal-content" id="app-modal-box">
+      <div class="modal-header">
+        <h3 id="modal-title">Modal Title</h3>
+        <button type="button" class="btn btn-outline btn-sm" onclick="App.closeModal()">✕ Close</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer" id="modal-footer"></div>
+    </div>
+  </div>
+
+  <script>
+    /*************************************************************************
+     * CAMBRIDGE OPTICIANS — COMPLETE MANAGEMENT SYSTEM
+     * Architecture:
+     * 1. MoneyUtils: Safe integer-minor-unit arithmetic (1 PKR = 100 paisas)
+     * 2. SeedData: Coherent, cross-checked fictional Demo Data
+     * 3. DataService: Modular CRUD & calculation service layer (ready for Supabase)
+     * 4. App UI Controller: Renders the 5 primary sections, forms, modals & printouts
+     *************************************************************************/
+
+    const STORAGE_KEY = 'cambridge_opticians_v1_db';
+
+    /* =========================================================================
+       1. CURRENCY & ARITHMETIC UTILITIES
+       ========================================================================= */
+    const MoneyUtils = {
+      toMinor(amount) {
+        const num = Number(amount);
+        if (isNaN(num)) return 0;
+        return Math.round(num * 100);
+      },
+      fromMinor(minorInt) {
+        return Number((Math.round(Number(minorInt) || 0) / 100).toFixed(2));
+      },
+      add(a, b) {
+        return this.fromMinor(this.toMinor(a) + this.toMinor(b));
+      },
+      sub(a, b) {
+        return this.fromMinor(this.toMinor(a) - this.toMinor(b));
+      },
+      mul(amount, qty) {
+        const q = Number(qty) || 0;
+        return this.fromMinor(Math.round(this.toMinor(amount) * q));
+      },
+      format(amount, currency = 'PKR') {
+        const val = this.fromMinor(this.toMinor(amount));
+        const isNeg = val < 0;
+        const absVal = Math.abs(val);
+        const formatted = absVal.toLocaleString('en-PK', {
+          minimumFractionDigits: absVal % 1 === 0 ? 0 : 2,
+          maximumFractionDigits: 2
+        });
+        return `${isNeg ? '- ' : ''}${currency} ${formatted}`;
+      }
+    };
+
+    /* =========================================================================
+       2. INITIAL FICTIONAL DEMO DATASET (100% Mathematically Consistent)
+       ========================================================================= */
+    function getTodayISO() {
+      const d = new Date();
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function getOffsetDateISO(daysOffset) {
+      const d = new Date();
+      d.setDate(d.getDate() + daysOffset);
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function buildSeedDatabase() {
+      const today = getTodayISO();
+      const yesterday = getOffsetDateISO(-1);
+      const threeDaysAgo = getOffsetDateISO(-3);
+
+      return {
+        meta: {
+          version: '1.0.0',
+          isDemoData: true,
+          lastUpdated: new Date().toISOString()
+        },
+        settings: {
+          businessName: 'Cambridge Opticians',
+          address: '',
+          phone: '',
+          email: '',
+          currency: 'PKR',
+          invoicePrefix: 'CO-2026-',
+          nextInvoiceSeq: 5,
+          invoiceFooter: 'Thank you for choosing Cambridge Opticians.',
+          trackInventory: true,
+          lowStockThreshold: 5,
+          topPerformerReward: 'Owner-defined Monthly Performance Bonus (PKR 5,000 Gift Voucher)',
+          productCategories: ['Frames', 'Lenses', 'Sunglasses', 'Contact Lenses', 'Accessories', 'Other'],
+          paymentMethods: ['Cash', 'Card', 'Bank Transfer', 'Other'],
+          expenseCategories: ['Rent', 'Electricity', 'Internet', 'Shop Supplies', 'Transport', 'Maintenance', 'Salaries', 'Other']
+        },
+        staff: [
+          { id: 'STF-1', name: 'Bilal Ahmed (Demo)', phone: '0300-1110001', active: true, notes: 'Senior Optician & Sales' },
+          { id: 'STF-2', name: 'Zainab Tariq (Demo)', phone: '0300-1110002', active: true, notes: 'Frame Stylist & Counter Sales' },
+          { id: 'STF-3', name: 'Usman Farooq (Demo)', phone: '0300-1110003', active: true, notes: 'Junior Sales Associate' }
+        ],
+        suppliers: [
+          { id: 'SUP-1', name: 'VisionCare Optics Wholesale (Demo)', phone: '042-35550101', address: 'Demo Optical Market, Suite 12', notes: 'Primary frame & lens distributor' },
+          { id: 'SUP-2', name: 'Apex Lens Lab (Demo)', phone: '021-34440202', address: 'Industrial Area Phase 2 (Demo)', notes: 'Progressive & Blue-cut lenses' }
+        ],
+        products: [
+          { id: 'PRD-101', name: 'Classic Titanium Full-Rim Frame', category: 'Frames', brand: 'RayOptic Demo', model: 'RO-5218', frameSize: '52-18-140', color: 'Matte Gunmetal', lensType: '', purchaseCost: 2200, sellingPrice: 4500, stock: 12, supplierId: 'SUP-1', notes: 'Demo lightweight titanium frame' },
+          { id: 'PRD-102', name: 'Acetate Wayfarer Eyeglass Frame', category: 'Frames', brand: 'VistaStyle Demo', model: 'VS-5417', frameSize: '54-17-145', color: 'Tortoise Brown', lensType: '', purchaseCost: 1500, sellingPrice: 3200, stock: 8, supplierId: 'SUP-1', notes: 'Popular unisex frame' },
+          { id: 'PRD-103', name: 'Blue-Cut Anti-Glare Lenses (Pair)', category: 'Lenses', brand: 'ApexClear Demo', model: 'BC-156', frameSize: 'Standard', color: 'Clear Blue-Coat', lensType: '1.56 Single Vision Blue-Cut', purchaseCost: 1200, sellingPrice: 2800, stock: 24, supplierId: 'SUP-2', notes: 'Screen protection lenses' },
+          { id: 'PRD-104', name: 'Photochromic Transition Lenses (Pair)', category: 'Lenses', brand: 'ApexClear Demo', model: 'PH-161', frameSize: 'Standard', color: 'Grey Transition', lensType: '1.61 Hi-Index Photochromic', purchaseCost: 2500, sellingPrice: 5500, stock: 4, supplierId: 'SUP-2', notes: 'Low stock alert item' },
+          { id: 'PRD-105', name: 'Polarized Aviator Sunglasses', category: 'Sunglasses', brand: 'SunShield Demo', model: 'SS-5814', frameSize: '58-14-140', color: 'Gold / Green Lens', lensType: 'UV400 Polarized', purchaseCost: 1800, sellingPrice: 3800, stock: 6, supplierId: 'SUP-1', notes: 'Includes hard case' },
+          { id: 'PRD-106', name: 'Microfiber Lens Cleaning Kit', category: 'Accessories', brand: 'ClearView Demo', model: 'CV-KIT', frameSize: 'N/A', color: 'Navy', lensType: '', purchaseCost: 150, sellingPrice: 400, stock: 30, supplierId: 'SUP-1', notes: 'Spray + cloth' }
+        ],
+        customers: [
+          { id: 'CUS-1', name: 'Tariq Mehmood (Demo)', phone: '0301-5550101', address: 'House 14, Street 4, Demo Town', regDate: threeDaysAgo, notes: 'Prefers lightweight titanium frames' },
+          { id: 'CUS-2', name: 'Ayesha Siddiqui (Demo)', phone: '0321-5550202', address: 'Flat 3B, Clifton Heights (Demo)', regDate: yesterday, notes: 'Ordered progressive reading glasses' },
+          { id: 'CUS-3', name: 'Kamran Rashid (Demo)', phone: '0333-5550303', address: 'Sector F-10, Demo Avenue', regDate: today, notes: 'Computer user - blue-cut lenses' }
+        ],
+        invoices: [
+          {
+            id: 'INV-1',
+            invoiceNumber: 'CO-2026-0001',
+            customerId: 'CUS-1',
+            customerName: 'Tariq Mehmood (Demo)',
+            customerPhone: '0301-5550101',
+            customerAddress: 'House 14, Street 4, Demo Town',
+            staffId: 'STF-1',
+            date: threeDaysAgo,
+            createdAt: `${threeDaysAgo}T11:30:00`,
+            items: [
+              { productId: 'PRD-101', name: 'Classic Titanium Full-Rim Frame', category: 'Frames', brand: 'RayOptic Demo', model: 'RO-5218', frameSize: '52-18-140', color: 'Matte Gunmetal', lensType: '', qty: 1, unitPrice: 4500, unitCost: 2200, discount: 0, lineTotal: 4500 },
+              { productId: 'PRD-103', name: 'Blue-Cut Anti-Glare Lenses (Pair)', category: 'Lenses', brand: 'ApexClear Demo', model: 'BC-156', frameSize: 'Standard', color: 'Clear Blue-Coat', lensType: '1.56 Single Vision Blue-Cut', qty: 1, unitPrice: 2800, unitCost: 1200, discount: 0, lineTotal: 2800 }
+            ],
+            prescription: {
+              hasRx: true,
+              odSph: '-1.25', odCyl: '-0.50', odAxis: '90',
+              osSph: '-1.50', osCyl: '-0.25', osAxis: '85',
+              pd: '63 mm',
+              frameSize: '52-18-140',
+              lensDetails: '1.56 Blue-Cut AR',
+              notes: 'Distance vision use'
+            },
+            subtotal: 7300,
+            invoiceDiscount: 300,
+            finalTotal: 7000,
+            notes: 'Demo completed order'
+          },
+          {
+            id: 'INV-2',
+            invoiceNumber: 'CO-2026-0002',
+            customerId: 'CUS-2',
+            customerName: 'Ayesha Siddiqui (Demo)',
+            customerPhone: '0321-5550202',
+            customerAddress: 'Flat 3B, Clifton Heights (Demo)',
+            staffId: 'STF-2',
+            date: yesterday,
+            createdAt: `${yesterday}T15:15:00`,
+            items: [
+              { productId: 'PRD-102', name: 'Acetate Wayfarer Eyeglass Frame', category: 'Frames', brand: 'VistaStyle Demo', model: 'VS-5417', frameSize: '54-17-145', color: 'Tortoise Brown', lensType: '', qty: 1, unitPrice: 3200, unitCost: 1500, discount: 0, lineTotal: 3200 },
+              { productId: 'PRD-104', name: 'Photochromic Transition Lenses (Pair)', category: 'Lenses', brand: 'ApexClear Demo', model: 'PH-161', frameSize: 'Standard', color: 'Grey Transition', lensType: '1.61 Hi-Index Photochromic', qty: 1, unitPrice: 5500, unitCost: 2500, discount: 200, lineTotal: 5300 }
+            ],
+            prescription: {
+              hasRx: true,
+              odSph: '-2.00', odCyl: '0.00', odAxis: '',
+              osSph: '-2.25', osCyl: '-0.50', osAxis: '180',
+              pd: '61 mm',
+              frameSize: '54-17-145',
+              lensDetails: 'Photochromic Grey 1.61',
+              notes: 'Balance payable on collection'
+            },
+            subtotal: 8500,
+            invoiceDiscount: 0,
+            finalTotal: 8500,
+            notes: 'Partial advance received'
+          },
+          {
+            id: 'INV-3',
+            invoiceNumber: 'CO-2026-0003',
+            customerId: 'CUS-3',
+            customerName: 'Kamran Rashid (Demo)',
+            customerPhone: '0333-5550303',
+            customerAddress: 'Sector F-10, Demo Avenue',
+            staffId: 'STF-1',
+            date: today,
+            createdAt: `${today}T10:45:00`,
+            items: [
+              { productId: 'PRD-105', name: 'Polarized Aviator Sunglasses', category: 'Sunglasses', brand: 'SunShield Demo', model: 'SS-5814', frameSize: '58-14-140', color: 'Gold / Green Lens', lensType: 'UV400 Polarized', qty: 1, unitPrice: 3800, unitCost: 1800, discount: 0, lineTotal: 3800 },
+              { productId: 'PRD-106', name: 'Microfiber Lens Cleaning Kit', category: 'Accessories', brand: 'ClearView Demo', model: 'CV-KIT', frameSize: 'N/A', color: 'Navy', lensType: '', qty: 1, unitPrice: 400, unitCost: 150, discount: 0, lineTotal: 400 }
+            ],
+            prescription: { hasRx: false, odSph: '', odCyl: '', odAxis: '', osSph: '', osCyl: '', osAxis: '', pd: '', frameSize: '58-14-140', lensDetails: '', notes: '' },
+            subtotal: 4200,
+            invoiceDiscount: 0,
+            finalTotal: 4200,
+            notes: 'Paid in full at counter'
+          },
+          {
+            id: 'INV-4',
+            invoiceNumber: 'CO-2026-0004',
+            customerId: 'CUS-1',
+            customerName: 'Tariq Mehmood (Demo)',
+            customerPhone: '0301-5550101',
+            customerAddress: 'House 14, Street 4, Demo Town',
+            staffId: 'STF-2',
+            date: today,
+            createdAt: `${today}T13:20:00`,
+            items: [
+              { productId: 'PRD-101', name: 'Classic Titanium Full-Rim Frame', category: 'Frames', brand: 'RayOptic Demo', model: 'RO-5218', frameSize: '52-18-140', color: 'Matte Gunmetal', lensType: '', qty: 1, unitPrice: 4500, unitCost: 2200, discount: 0, lineTotal: 4500 }
+            ],
+            prescription: { hasRx: false, odSph: '', odCyl: '', odAxis: '', osSph: '', osCyl: '', osAxis: '', pd: '', frameSize: '52-18-140', lensDetails: 'Frame only spare', notes: '' },
+            subtotal: 4500,
+            invoiceDiscount: 0,
+            finalTotal: 4500,
+            notes: 'Spare frame purchase — partial payment'
+          }
+        ],
+        payments: [
+          { id: 'PAY-1', invoiceId: 'INV-1', customerId: 'CUS-1', date: threeDaysAgo, amount: 7000, method: 'Cash', isInitialSalePayment: true, notes: 'Full payment with order (Demo)' },
+          { id: 'PAY-2', invoiceId: 'INV-2', customerId: 'CUS-2', date: yesterday, amount: 4000, method: 'Cash', isInitialSalePayment: true, notes: 'Advance payment on order (Demo)' },
+          { id: 'PAY-3', invoiceId: 'INV-2', customerId: 'CUS-2', date: today, amount: 1500, method: 'Cash', isInitialSalePayment: false, notes: 'Second installment received today (Demo)' },
+          { id: 'PAY-4', invoiceId: 'INV-3', customerId: 'CUS-3', date: today, amount: 4200, method: 'Cash', isInitialSalePayment: true, notes: 'Cash counter sale (Demo)' },
+          { id: 'PAY-5', invoiceId: 'INV-4', customerId: 'CUS-1', date: today, amount: 2500, method: 'Card', isInitialSalePayment: true, notes: 'Paid via POS Card machine (Demo)' }
+        ],
+        purchases: [
+          {
+            id: 'PUR-1',
+            supplierId: 'SUP-1',
+            date: threeDaysAgo,
+            productId: 'PRD-101',
+            itemDescription: 'Classic Titanium Full-Rim Frame (Batch Restock)',
+            qty: 10,
+            unitCost: 2200,
+            totalAmount: 22000,
+            notes: 'Demo wholesale frame delivery'
+          },
+          {
+            id: 'PUR-2',
+            supplierId: 'SUP-2',
+            date: yesterday,
+            productId: 'PRD-103',
+            itemDescription: 'Blue-Cut Anti-Glare Lenses (15 Pairs)',
+            qty: 15,
+            unitCost: 1200,
+            totalAmount: 18000,
+            notes: 'Demo lens stock replenishment'
+          }
+        ],
+        supplierPayments: [
+          { id: 'SPAY-1', supplierId: 'SUP-1', purchaseId: 'PUR-1', date: threeDaysAgo, amount: 15000, method: 'Bank Transfer', notes: 'Partial bank transfer to VisionCare (Demo)' },
+          { id: 'SPAY-2', supplierId: 'SUP-2', purchaseId: 'PUR-2', date: today, amount: 8000, method: 'Cash', notes: 'Cash payment to Apex Lens Lab courier (Demo)' }
+        ],
+        expenses: [
+          { id: 'EXP-1', date: yesterday, category: 'Electricity', description: 'Monthly Shop Utility Bill (Demo)', amount: 4500, method: 'Bank Transfer', receiptRef: 'BILL-882', notes: 'Paid online' },
+          { id: 'EXP-2', date: today, category: 'Shop Supplies', description: 'Lens cleaning solution bottles & tissues (Demo)', amount: 850, method: 'Cash', receiptRef: 'RCP-104', notes: 'Paid from counter cash' },
+          { id: 'EXP-3', date: today, category: 'Transport', description: 'Optical lab rider delivery charges (Demo)', amount: 350, method: 'Cash', receiptRef: '', notes: 'Paid in cash' }
+        ],
+        dailyEntries: [
+          // Extra cash/non-invoice movements (e.g., withdrawals, refunds, other cash income)
+        ],
+        dailyClosings: [
+          {
+            id: 'DCL-1',
+            date: yesterday,
+            openingCash: 10000,
+            cashSales: 4000,
+            cashCustomerPayments: 0,
+            otherCashIncome: 0,
+            cashRefunds: 0,
+            cashExpenses: 0,
+            cashSupplierPayments: 0,
+            cashWithdrawals: 0,
+            expectedClosingCash: 14000,
+            actualCashCounted: 14000,
+            difference: 0,
+            discrepancyNote: 'Balanced accurately (Demo)',
+            closedBy: 'Owner',
+            closedAt: `${yesterday}T21:00:00`
+          }
+        ],
+        monthlyClosings: []
+      };
+    }
+
+    /* =========================================================================
+       3. MODULAR DATA SERVICE LAYER (Ready for Future Supabase Replacement)
+       ========================================================================= */
+    const DataService = {
+      db: null,
+
+      init() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && parsed.settings && Array.isArray(parsed.invoices)) {
+              this.db = parsed;
+              return;
+            }
+          }
+        } catch (err) {
+          console.error('Local storage load warning:', err);
+        }
+        this.db = buildSeedDatabase();
+        this.save();
+      },
+
+      save() {
+        try {
+          this.db.meta.lastUpdated = new Date().toISOString();
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(this.db));
+          return { ok: true };
+        } catch (err) {
+          console.error('Failed to save to localStorage:', err);
+          return { ok: false, error: 'Browser storage quota exceeded or restricted.' };
+        }
+      },
+
+      resetToDemoData() {
+        this.db = buildSeedDatabase();
+        return this.save();
+      },
+
+      exportBackupJSON() {
+        return JSON.stringify(this.db, null, 2);
+      },
+
+      importBackupJSON(jsonString) {
+        try {
+          const data = JSON.parse(jsonString);
+          const requiredArrays = ['customers', 'products', 'invoices', 'payments', 'expenses', 'suppliers', 'purchases', 'supplierPayments', 'staff'];
+          if (!data || typeof data !== 'object' || !data.settings) {
+            return { ok: false, error: 'Invalid backup file: missing settings object.' };
+          }
+          for (const key of requiredArrays) {
+            if (!Array.isArray(data[key])) {
+              return { ok: false, error: `Invalid backup file: missing or corrupted "${key}" collection.` };
+            }
+          }
+          this.db = data;
+          return this.save();
+        } catch (e) {
+          return { ok: false, error: 'Malformed JSON file. Could not parse backup.' };
+        }
+      },
+
+      getCurrency() {
+        return (this.db.settings && this.db.settings.currency) || 'PKR';
+      },
+
+      formatMoney(amount) {
+        return MoneyUtils.format(amount, this.getCurrency());
+      },
+
+      // --- Invoice & Customer Calculations ---
+      getInvoicePaidAmount(invoiceId) {
+        return this.db.payments
+          .filter(p => p.invoiceId === invoiceId)
+          .reduce((sum, p) => MoneyUtils.add(sum, p.amount), 0);
+      },
+
+      getInvoiceEnriched(invoice) {
+        if (!invoice) return null;
+        const paid = this.getInvoicePaidAmount(invoice.id);
+        const balance = Math.max(0, MoneyUtils.sub(invoice.finalTotal, paid));
+        let status = 'Outstanding';
+        if (MoneyUtils.toMinor(balance) <= 0 && MoneyUtils.toMinor(invoice.finalTotal) > 0) {
+          status = 'Paid';
+        } else if (MoneyUtils.toMinor(paid) > 0 && MoneyUtils.toMinor(balance) > 0) {
+          status = 'Partially Paid';
+        } else if (MoneyUtils.toMinor(invoice.finalTotal) === 0) {
+          status = 'Paid';
+        }
+        const staffMember = this.db.staff.find(s => s.id === invoice.staffId);
+        const payments = this.db.payments.filter(p => p.invoiceId === invoice.id);
+        return {
+          ...invoice,
+          amountPaid: paid,
+          balance,
+          status,
+          staffName: staffMember ? staffMember.name : 'Unassigned',
+          payments
+        };
+      },
+
+      getAllInvoicesEnriched() {
+        return this.db.invoices.map(inv => this.getInvoiceEnriched(inv));
+      },
+
+      getCustomerFinancials(customerId) {
+        const custInvoices = this.db.invoices.filter(i => i.customerId === customerId);
+        let totalInvoiced = 0;
+        let totalPaid = 0;
+        custInvoices.forEach(inv => {
+          totalInvoiced = MoneyUtils.add(totalInvoiced, inv.finalTotal);
+          totalPaid = MoneyUtils.add(totalPaid, this.getInvoicePaidAmount(inv.id));
+        });
+        const outstanding = Math.max(0, MoneyUtils.sub(totalInvoiced, totalPaid));
+        return {
+          invoiceCount: custInvoices.length,
+          totalInvoiced,
+          totalPaid,
+          outstanding
+        };
+      },
+
+      getTotalCustomerReceivables() {
+        return this.db.invoices.reduce((sum, inv) => {
+          const enr = this.getInvoiceEnriched(inv);
+          return MoneyUtils.add(sum, enr.balance);
+        }, 0);
+      },
+
+      // --- Supplier Calculations ---
+      getSupplierFinancials(supplierId) {
+        const purchases = this.db.purchases.filter(p => p.supplierId === supplierId);
+        const payments = this.db.supplierPayments.filter(sp => sp.supplierId === supplierId);
+        const totalPurchased = purchases.reduce((s, p) => MoneyUtils.add(s, p.totalAmount), 0);
+        const totalPaid = payments.reduce((s, sp) => MoneyUtils.add(s, sp.amount), 0);
+        const balance = Math.max(0, MoneyUtils.sub(totalPurchased, totalPaid));
+        return {
+          purchaseCount: purchases.length,
+          totalPurchased,
+          totalPaid,
+          balance
+        };
+      },
+
+      getTotalSupplierPayables() {
+        return this.db.suppliers.reduce((sum, sup) => {
+          const fin = this.getSupplierFinancials(sup.id);
+          return MoneyUtils.add(sum, fin.balance);
+        }, 0);
+      },
+
+      // --- Create / Update Customer ---
+      saveCustomer(custData) {
+        const name = (custData.name || '').trim();
+        const phone = (custData.phone || '').trim();
+        if (!name || !phone) {
+          return { ok: false, error: 'Customer name and phone number are required.' };
+        }
+        if (custData.id) {
+          const idx = this.db.customers.findIndex(c => c.id === custData.id);
+          if (idx === -1) return { ok: false, error: 'Customer not found.' };
+          this.db.customers[idx] = {
+            ...this.db.customers[idx],
+            name,
+            phone,
+            address: (custData.address || '').trim(),
+            notes: (custData.notes || '').trim()
+          };
+          const res = this.save();
+          return res.ok ? { ok: true, customer: this.db.customers[idx] } : res;
+        } else {
+          const newCust = {
+            id: 'CUS-' + Date.now(),
+            name,
+            phone,
+            address: (custData.address || '').trim(),
+            regDate: getTodayISO(),
+            notes: (custData.notes || '').trim()
+          };
+          this.db.customers.unshift(newCust);
+          const res = this.save();
+          return res.ok ? { ok: true, customer: newCust } : res;
+        }
+      },
+
+      findDuplicatePhoneCustomer(phone, excludeId = null) {
+        const normalized = (phone || '').replace(/[^0-9]/g, '');
+        if (!normalized) return null;
+        return this.db.customers.find(c => {
+          if (excludeId && c.id === excludeId) return false;
+          return (c.phone || '').replace(/[^0-9]/g, '') === normalized;
+        }) || null;
+      },
+
+      // --- Save Invoice with Stock & Initial Payment ---
+      createInvoice(payload) {
+        // Validate customer
+        if (!payload.customerId && !payload.customerName) {
+          return { ok: false, error: 'Please select or enter a customer.' };
+        }
+        if (!payload.staffId) {
+          return { ok: false, error: 'Please assign a staff member to this sale.' };
+        }
+        if (!Array.isArray(payload.items) || payload.items.length === 0) {
+          return { ok: false, error: 'Please add at least one product or line item to the invoice.' };
+        }
+
+        // Check duplicate invoice number
+        const invNum = (payload.invoiceNumber || '').trim();
+        if (!invNum) {
+          return { ok: false, error: 'Invoice number is required.' };
+        }
+        if (this.db.invoices.some(i => i.invoiceNumber.toLowerCase() === invNum.toLowerCase())) {
+          return { ok: false, error: `Invoice number "${invNum}" already exists. Please use a unique number.` };
+        }
+
+        // Validate line items & compute subtotal
+        let subtotal = 0;
+        const cleanItems = [];
+        for (const item of payload.items) {
+          const qty = Number(item.qty);
+          const unitPrice = Number(item.unitPrice);
+          const discount = Number(item.discount || 0);
+          if (!item.name || !item.name.trim()) {
+            return { ok: false, error: 'Every line item must have a product name or description.' };
+          }
+          if (isNaN(qty) || qty <= 0) {
+            return { ok: false, error: `Invalid quantity for "${item.name}".` };
+          }
+          if (isNaN(unitPrice) || unitPrice < 0) {
+            return { ok: false, error: `Invalid unit price for "${item.name}".` };
+          }
+          const grossLine = MoneyUtils.mul(unitPrice, qty);
+          if (discount < 0 || MoneyUtils.toMinor(discount) > MoneyUtils.toMinor(grossLine)) {
+            return { ok: false, error: `Invalid line discount for "${item.name}".` };
+          }
+          const lineTotal = MoneyUtils.sub(grossLine, discount);
+          subtotal = MoneyUtils.add(subtotal, lineTotal);
+
+          let unitCost = item.unitCost !== undefined && item.unitCost !== '' ? Number(item.unitCost) : null;
+          if (item.productId) {
+            const catProd = this.db.products.find(p => p.id === item.productId);
+            if (catProd && unitCost === null) {
+              unitCost = Number(catProd.purchaseCost);
+            }
+          }
+
+          cleanItems.push({
+            productId: item.productId || '',
+            name: item.name.trim(),
+            category: item.category || 'Other',
+            brand: item.brand || '',
+            model: item.model || '',
+            frameSize: item.frameSize || '',
+            color: item.color || '',
+            lensType: item.lensType || '',
+            qty,
+            unitPrice,
+            unitCost,
+            discount,
+            lineTotal
+          });
+        }
+
+        const invoiceDiscount = Number(payload.invoiceDiscount || 0);
+        if (invoiceDiscount < 0 || MoneyUtils.toMinor(invoiceDiscount) > MoneyUtils.toMinor(subtotal)) {
+          return { ok: false, error: 'Invoice discount cannot be negative or exceed the subtotal.' };
+        }
+
+        const finalTotal = MoneyUtils.sub(subtotal, invoiceDiscount);
+        const initialPaid = Number(payload.initialPaymentAmount || 0);
+        if (initialPaid < 0) {
+          return { ok: false, error: 'Payment amount cannot be negative.' };
+        }
+        if (MoneyUtils.toMinor(initialPaid) > MoneyUtils.toMinor(finalTotal)) {
+          return { ok: false, error: 'Payment amount cannot exceed the final invoice total.' };
+        }
+
+        // Handle customer creation if new
+        let customerId = payload.customerId;
+        let customerRecord = this.db.customers.find(c => c.id === customerId);
+        if (!customerRecord) {
+          const newCust = {
+            id: 'CUS-' + Date.now(),
+            name: payload.customerName.trim(),
+            phone: (payload.customerPhone || '').trim(),
+            address: (payload.customerAddress || '').trim(),
+            regDate: payload.date || getTodayISO(),
+            notes: (payload.customerNotes || '').trim()
+          };
+          this.db.customers.unshift(newCust);
+          customerRecord = newCust;
+          customerId = newCust.id;
+        }
+
+        // Deduct inventory if enabled
+        if (this.db.settings.trackInventory) {
+          for (const item of cleanItems) {
+            if (item.productId) {
+              const prod = this.db.products.find(p => p.id === item.productId);
+              if (prod) {
+                prod.stock = Math.max(0, Number(prod.stock || 0) - item.qty);
+              }
+            }
+          }
+        }
+
+        const newInvoice = {
+          id: 'INV-' + Date.now(),
+          invoiceNumber: invNum,
+          customerId,
+          customerName: customerRecord.name,
+          customerPhone: customerRecord.phone,
+          customerAddress: customerRecord.address || '',
+          staffId: payload.staffId,
+          date: payload.date || getTodayISO(),
+          createdAt: new Date().toISOString(),
+          items: cleanItems,
+          prescription: payload.prescription || { hasRx: false },
+          subtotal,
+          invoiceDiscount,
+          finalTotal,
+          notes: (payload.notes || '').trim()
+        };
+
+        this.db.invoices.unshift(newInvoice);
+        this.db.settings.nextInvoiceSeq = (Number(this.db.settings.nextInvoiceSeq) || 1) + 1;
+
+        if (MoneyUtils.toMinor(initialPaid) > 0) {
+          this.db.payments.unshift({
+            id: 'PAY-' + Date.now(),
+            invoiceId: newInvoice.id,
+            customerId,
+            date: newInvoice.date,
+            amount: initialPaid,
+            method: payload.paymentMethod || 'Cash',
+            isInitialSalePayment: true,
+            notes: 'Payment recorded with invoice ' + newInvoice.invoiceNumber
+          });
+        }
+
+        const saveRes = this.save();
+        if (!saveRes.ok) return saveRes;
+        return { ok: true, invoice: this.getInvoiceEnriched(newInvoice) };
+      },
+
+      // --- Record Customer Balance Payment ---
+      recordCustomerPayment(payload) {
+        const inv = this.db.invoices.find(i => i.id === payload.invoiceId);
+        if (!inv) return { ok: false, error: 'Selected invoice was not found.' };
+        const enriched = this.getInvoiceEnriched(inv);
+        const amount = Number(payload.amount);
+        if (isNaN(amount) || amount <= 0) {
+          return { ok: false, error: 'Please enter a valid positive payment amount.' };
+        }
+        if (MoneyUtils.toMinor(amount) > MoneyUtils.toMinor(enriched.balance)) {
+          return { ok: false, error: `Payment (${this.formatMoney(amount)}) exceeds the remaining invoice balance (${this.formatMoney(enriched.balance)}).` };
+        }
+        const payment = {
+          id: 'PAY-' + Date.now(),
+          invoiceId: inv.id,
+          customerId: inv.customerId,
+          date: payload.date || getTodayISO(),
+          amount: MoneyUtils.fromMinor(MoneyUtils.toMinor(amount)),
+          method: payload.method || 'Cash',
+          isInitialSalePayment: false,
+          notes: (payload.notes || '').trim()
+        };
+        this.db.payments.unshift(payment);
+        const res = this.save();
+        return res.ok ? { ok: true, payment, invoice: this.getInvoiceEnriched(inv) } : res;
+      },
+
+      // --- Products Management ---
+      saveProduct(prodData) {
+        const name = (prodData.name || '').trim();
+        if (!name) return { ok: false, error: 'Product name is required.' };
+        const sellingPrice = Number(prodData.sellingPrice);
+        const purchaseCost = prodData.purchaseCost === '' || prodData.purchaseCost === null ? 0 : Number(prodData.purchaseCost);
+        const stock = Number(prodData.stock || 0);
+        if (isNaN(sellingPrice) || sellingPrice < 0) return { ok: false, error: 'Invalid selling price.' };
+        if (isNaN(purchaseCost) || purchaseCost < 0) return { ok: false, error: 'Invalid purchase cost.' };
+
+        if (prodData.id) {
+          const idx = this.db.products.findIndex(p => p.id === prodData.id);
+          if (idx === -1) return { ok: false, error: 'Product not found.' };
+          this.db.products[idx] = {
+            ...this.db.products[idx],
+            name,
+            category: prodData.category || 'Frames',
+            brand: (prodData.brand || '').trim(),
+            model: (prodData.model || '').trim(),
+            frameSize: (prodData.frameSize || '').trim(),
+            color: (prodData.color || '').trim(),
+            lensType: (prodData.lensType || '').trim(),
+            purchaseCost,
+            sellingPrice,
+            stock,
+            supplierId: prodData.supplierId || '',
+            notes: (prodData.notes || '').trim()
+          };
+          const res = this.save();
+          return res.ok ? { ok: true, product: this.db.products[idx] } : res;
+        } else {
+          const newProd = {
+            id: 'PRD-' + Date.now().toString().slice(-5),
+            name,
+            category: prodData.category || 'Frames',
+            brand: (prodData.brand || '').trim(),
+            model: (prodData.model || '').trim(),
+            frameSize: (prodData.frameSize || '').trim(),
+            color: (prodData.color || '').trim(),
+            lensType: (prodData.lensType || '').trim(),
+            purchaseCost,
+            sellingPrice,
+            stock,
+            supplierId: prodData.supplierId || '',
+            notes: (prodData.notes || '').trim()
+          };
+          this.db.products.unshift(newProd);
+          const res = this.save();
+          return res.ok ? { ok: true, product: newProd } : res;
+        }
+      },
+
+      // --- Suppliers & Purchases ---
+      saveSupplier(supData) {
+        const name = (supData.name || '').trim();
+        if (!name) return { ok: false, error: 'Supplier name is required.' };
+        if (supData.id) {
+          const idx = this.db.suppliers.findIndex(s => s.id === supData.id);
+          if (idx === -1) return { ok: false, error: 'Supplier not found.' };
+          this.db.suppliers[idx] = {
+            ...this.db.suppliers[idx],
+            name,
+            phone: (supData.phone || '').trim(),
+            address: (supData.address || '').trim(),
+            notes: (supData.notes || '').trim()
+          };
+          return this.save();
+        } else {
+          const newSup = {
+            id: 'SUP-' + Date.now().toString().slice(-5),
+            name,
+            phone: (supData.phone || '').trim(),
+            address: (supData.address || '').trim(),
+            notes: (supData.notes || '').trim()
+          };
+          this.db.suppliers.unshift(newSup);
+          return this.save();
+        }
+      },
+
+      recordPurchase(payload) {
+        if (!payload.supplierId) return { ok: false, error: 'Please select a supplier.' };
+        const qty = Number(payload.qty);
+        const unitCost = Number(payload.unitCost);
+        if (isNaN(qty) || qty <= 0) return { ok: false, error: 'Quantity must be greater than zero.' };
+        if (isNaN(unitCost) || unitCost < 0) return { ok: false, error: 'Unit cost cannot be negative.' };
+
+        const totalAmount = MoneyUtils.mul(unitCost, qty);
+        const amountPaid = Number(payload.amountPaid || 0);
+        if (amountPaid < 0 || MoneyUtils.toMinor(amountPaid) > MoneyUtils.toMinor(totalAmount)) {
+          return { ok: false, error: 'Initial supplier payment cannot be negative or exceed the total purchase amount.' };
+        }
+
+        let itemDesc = (payload.itemDescription || '').trim();
+        if (payload.productId) {
+          const prod = this.db.products.find(p => p.id === payload.productId);
+          if (prod) {
+            if (!itemDesc) itemDesc = prod.name;
+            if (this.db.settings.trackInventory) {
+              prod.stock = Number(prod.stock || 0) + qty;
+            }
+            prod.purchaseCost = unitCost;
+          }
+        }
+        if (!itemDesc) return { ok: false, error: 'Please select a product or enter an item description.' };
+
+        const newPurchase = {
+          id: 'PUR-' + Date.now(),
+          supplierId: payload.supplierId,
+          date: payload.date || getTodayISO(),
+          productId: payload.productId || '',
+          itemDescription: itemDesc,
+          qty,
+          unitCost,
+          totalAmount,
+          notes: (payload.notes || '').trim()
+        };
+        this.db.purchases.unshift(newPurchase);
+
+        if (MoneyUtils.toMinor(amountPaid) > 0) {
+          this.db.supplierPayments.unshift({
+            id: 'SPAY-' + Date.now(),
+            supplierId: payload.supplierId,
+            purchaseId: newPurchase.id,
+            date: newPurchase.date,
+            amount: amountPaid,
+            method: payload.paymentMethod || 'Cash',
+            notes: 'Paid with purchase ' + newPurchase.id
+          });
+        }
+        return this.save();
+      },
+
+      recordSupplierPayment(payload) {
+        if (!payload.supplierId) return { ok: false, error: 'Please select a supplier.' };
+        const fin = this.getSupplierFinancials(payload.supplierId);
+        const amount = Number(payload.amount);
+        if (isNaN(amount) || amount <= 0) return { ok: false, error: 'Please enter a valid positive payment amount.' };
+        if (MoneyUtils.toMinor(amount) > MoneyUtils.toMinor(fin.balance)) {
+          return { ok: false, error: `Payment exceeds supplier's outstanding balance (${this.formatMoney(fin.balance)}).` };
+        }
+        this.db.supplierPayments.unshift({
+          id: 'SPAY-' + Date.now(),
+          supplierId: payload.supplierId,
+          purchaseId: payload.purchaseId || '',
+          date: payload.date || getTodayISO(),
+          amount,
+          method: payload.method || 'Cash',
+          notes: (payload.notes || '').trim()
+        });
+        return this.save();
+      },
+
+      // --- Operating Expenses & Manual Daily Entries ---
+      recordExpense(payload) {
+        const amount = Number(payload.amount);
+        if (!payload.description || !payload.description.trim()) {
+          return { ok: false, error: 'Expense description is required.' };
+        }
+        if (isNaN(amount) || amount <= 0) {
+          return { ok: false, error: 'Expense amount must be greater than zero.' };
+        }
+        this.db.expenses.unshift({
+          id: 'EXP-' + Date.now(),
+          date: payload.date || getTodayISO(),
+          category: payload.category || 'Other',
+          description: payload.description.trim(),
+          amount,
+          method: payload.method || 'Cash',
+          receiptRef: (payload.receiptRef || '').trim(),
+          notes: (payload.notes || '').trim()
+        });
+        return this.save();
+      },
+
+      recordManualDailyEntry(payload) {
+        const amount = Number(payload.amount);
+        if (!payload.description || !payload.description.trim()) {
+          return { ok: false, error: 'Description is required.' };
+        }
+        if (isNaN(amount) || amount <= 0) {
+          return { ok: false, error: 'Amount must be greater than zero.' };
+        }
+        this.db.dailyEntries.unshift({
+          id: 'DEN-' + Date.now(),
+          date: payload.date || getTodayISO(),
+          type: payload.type, // 'Other Cash Income' | 'Cash Refund' | 'Cash Withdrawal'
+          description: payload.description.trim(),
+          amount,
+          method: payload.method || 'Cash',
+          staffId: payload.staffId || '',
+          notes: (payload.notes || '').trim()
+        });
+        return this.save();
+      },
+
+      // --- Daily Cash Reconciliation Calculation ---
+      calculateDailyCashReconciliation(dateStr, customOpeningCash = null) {
+        // Check if there is an existing closing for this date or previous day
+        const existingClosing = this.db.dailyClosings.find(dc => dc.date === dateStr);
+        let openingCash = 5000;
+        if (customOpeningCash !== null && customOpeningCash !== undefined && customOpeningCash !== '') {
+          openingCash = Number(customOpeningCash) || 0;
+        } else if (existingClosing) {
+          openingCash = Number(existingClosing.openingCash) || 0;
+        } else {
+          // Find most recent closed day prior to dateStr
+          const priorClosings = this.db.dailyClosings
+            .filter(dc => dc.date < dateStr)
+            .sort((a, b) => b.date.localeCompare(a.date));
+          if (priorClosings.length > 0) {
+            openingCash = Number(priorClosings[0].actualCashCounted) || 0;
+          }
+        }
+
+        // 1. Cash received from sales on dateStr (initial payments in Cash)
+        const cashSales = this.db.payments
+          .filter(p => p.date === dateStr && p.method === 'Cash' && p.isInitialSalePayment)
+          .reduce((s, p) => MoneyUtils.add(s, p.amount), 0);
+
+        // 2. Cash received from outstanding customer balances on dateStr
+        const cashCustomerPayments = this.db.payments
+          .filter(p => p.date === dateStr && p.method === 'Cash' && !p.isInitialSalePayment)
+          .reduce((s, p) => MoneyUtils.add(s, p.amount), 0);
+
+        // Non-cash receipts (Card / Bank Transfer) for transparency
+        const nonCashReceipts = this.db.payments
+          .filter(p => p.date === dateStr && p.method !== 'Cash')
+          .reduce((s, p) => MoneyUtils.add(s, p.amount), 0);
+
+        // 3. Other cash income, refunds, withdrawals from manual dailyEntries
+        const dayManual = this.db.dailyEntries.filter(d => d.date === dateStr && d.method === 'Cash');
+        const otherCashIncome = dayManual
+          .filter(d => d.type === 'Other Cash Income')
+          .reduce((s, d) => MoneyUtils.add(s, d.amount), 0);
+        const cashRefunds = dayManual
+          .filter(d => d.type === 'Cash Refund')
+          .reduce((s, d) => MoneyUtils.add(s, d.amount), 0);
+        const cashWithdrawals = dayManual
+          .filter(d => d.type === 'Cash Withdrawal')
+          .reduce((s, d) => MoneyUtils.add(s, d.amount), 0);
+
+        // 4. Cash operating expenses on dateStr
+        const cashExpenses = this.db.expenses
+          .filter(e => e.date === dateStr && e.method === 'Cash')
+          .reduce((s, e) => MoneyUtils.add(s, e.amount), 0);
+        const nonCashExpenses = this.db.expenses
+          .filter(e => e.date === dateStr && e.method !== 'Cash')
+          .reduce((s, e) => MoneyUtils.add(s, e.amount), 0);
+
+        // 5. Cash supplier payments on dateStr
+        const cashSupplierPayments = this.db.supplierPayments
+          .filter(sp => sp.date === dateStr && sp.method === 'Cash')
+          .reduce((s, sp) => MoneyUtils.add(s, sp.amount), 0);
+        const nonCashSupplierPayments = this.db.supplierPayments
+          .filter(sp => sp.date === dateStr && sp.method !== 'Cash')
+          .reduce((s, sp) => MoneyUtils.add(s, sp.amount), 0);
+
+        // Expected Closing Cash = Opening Cash + Cash Receipts + Other Cash Income − Cash Refunds − Cash Expenses − Cash Supplier Payments − Cash Withdrawals
+        const totalIn = MoneyUtils.add(MoneyUtils.add(openingCash, cashSales), MoneyUtils.add(cashCustomerPayments, otherCashIncome));
+        const totalOut = MoneyUtils.add(MoneyUtils.add(cashRefunds, cashExpenses), MoneyUtils.add(cashSupplierPayments, cashWithdrawals));
+        const expectedClosingCash = MoneyUtils.sub(totalIn, totalOut);
+
+        return {
+          date: dateStr,
+          openingCash,
+          cashSales,
+          cashCustomerPayments,
+          otherCashIncome,
+          cashRefunds,
+          cashExpenses,
+          cashSupplierPayments,
+          cashWithdrawals,
+          expectedClosingCash,
+          nonCashReceipts,
+          nonCashExpenses,
+          nonCashSupplierPayments,
+          existingClosing
+        };
+      },
+
+      saveDailyClosing(payload) {
+        const calc = this.calculateDailyCashReconciliation(payload.date, payload.openingCash);
+        const actualCounted = Number(payload.actualCashCounted);
+        if (isNaN(actualCounted) || actualCounted < 0) {
+          return { ok: false, error: 'Please enter a valid non-negative Actual Cash Counted amount.' };
+        }
+        const difference = MoneyUtils.sub(actualCounted, calc.expectedClosingCash);
+        if (MoneyUtils.toMinor(difference) !== 0 && !(payload.discrepancyNote || '').trim()) {
+          return { ok: false, error: 'There is a cash discrepancy. Please enter an explanation note before closing the day.' };
+        }
+
+        const record = {
+          id: calc.existingClosing ? calc.existingClosing.id : 'DCL-' + Date.now(),
+          date: payload.date,
+          openingCash: calc.openingCash,
+          cashSales: calc.cashSales,
+          cashCustomerPayments: calc.cashCustomerPayments,
+          otherCashIncome: calc.otherCashIncome,
+          cashRefunds: calc.cashRefunds,
+          cashExpenses: calc.cashExpenses,
+          cashSupplierPayments: calc.cashSupplierPayments,
+          cashWithdrawals: calc.cashWithdrawals,
+          expectedClosingCash: calc.expectedClosingCash,
+          actualCashCounted: actualCounted,
+          difference,
+          discrepancyNote: (payload.discrepancyNote || '').trim(),
+          closedBy: payload.closedBy || 'Manager',
+          closedAt: new Date().toISOString()
+        };
+
+        const existingIdx = this.db.dailyClosings.findIndex(dc => dc.date === payload.date);
+        if (existingIdx >= 0) {
+          this.db.dailyClosings[existingIdx] = record;
+        } else {
+          this.db.dailyClosings.unshift(record);
+        }
+        const res = this.save();
+        return res.ok ? { ok: true, record } : res;
+      },
+
+      // --- Staff Performance & Rankings ---
+      getStaffRankings(startDate, endDate) {
+        const filteredInvoices = this.db.invoices.filter(inv => {
+          if (startDate && inv.date < startDate) return false;
+          if (endDate && inv.date > endDate) return false;
+          return true;
+        });
+
+        const statsMap = {};
+        this.db.staff.forEach(s => {
+          statsMap[s.id] = {
+            staffId: s.id,
+            name: s.name,
+            phone: s.phone,
+            active: s.active,
+            invoiceCount: 0,
+            totalSales: 0,
+            avgInvoice: 0
+          };
+        });
+
+        filteredInvoices.forEach(inv => {
+          if (!statsMap[inv.staffId]) {
+            statsMap[inv.staffId] = {
+              staffId: inv.staffId,
+              name: 'Unassigned / Former Staff',
+              phone: '',
+              active: false,
+              invoiceCount: 0,
+              totalSales: 0,
+              avgInvoice: 0
+            };
+          }
+          statsMap[inv.staffId].invoiceCount += 1;
+          statsMap[inv.staffId].totalSales = MoneyUtils.add(statsMap[inv.staffId].totalSales, inv.finalTotal);
+        });
+
+        const list = Object.values(statsMap).map(row => ({
+          ...row,
+          avgInvoice: row.invoiceCount > 0 ? MoneyUtils.fromMinor(Math.round(MoneyUtils.toMinor(row.totalSales) / row.invoiceCount)) : 0
+        }));
+
+        list.sort((a, b) => {
+          const diff = MoneyUtils.toMinor(b.totalSales) - MoneyUtils.toMinor(a.totalSales);
+          if (diff !== 0) return diff;
+          return b.invoiceCount - a.invoiceCount;
+        });
+
+        // Determine winner or tie
+        let topPerformers = [];
+        if (list.length > 0 && MoneyUtils.toMinor(list[0].totalSales) > 0) {
+          const topSaleMinor = MoneyUtils.toMinor(list[0].totalSales);
+          topPerformers = list.filter(item => MoneyUtils.toMinor(item.totalSales) === topSaleMinor);
+        }
+
+        return {
+          rankings: list,
+          topPerformers,
+          totalPeriodSales: filteredInvoices.reduce((s, i) => MoneyUtils.add(s, i.finalTotal), 0),
+          totalPeriodInvoices: filteredInvoices.length
+        };
+      },
+
+      // --- Operational & Owner-Only Profit Reports ---
+      generatePeriodReport(startDate, endDate, includeOwnerFinancials = false) {
+        const inRange = (d) => {
+          if (startDate && d < startDate) return false;
+          if (endDate && d > endDate) return false;
+          return true;
+        };
+
+        const invoices = this.db.invoices.filter(i => inRange(i.date));
+        const payments = this.db.payments.filter(p => inRange(p.date));
+        const expenses = this.db.expenses.filter(e => inRange(e.date));
+        const purchases = this.db.purchases.filter(p => inRange(p.date));
+        const supplierPayments = this.db.supplierPayments.filter(sp => inRange(sp.date));
+        const manualEntries = this.db.dailyEntries.filter(d => inRange(d.date));
+        const closings = this.db.dailyClosings.filter(c => inRange(c.date));
+
+        let grossSales = 0;
+        let totalDiscounts = 0;
+        let recordedSales = 0;
+        let cogs = 0;
+        let missingCostItemsCount = 0;
+
+        invoices.forEach(inv => {
+          let invGross = 0;
+          let invLineDiscounts = 0;
+          (inv.items || []).forEach(it => {
+            const lineGross = MoneyUtils.mul(it.unitPrice, it.qty);
+            invGross = MoneyUtils.add(invGross, lineGross);
+            invLineDiscounts = MoneyUtils.add(invLineDiscounts, it.discount || 0);
+            if (it.unitCost !== null && it.unitCost !== undefined && it.unitCost !== '' && !isNaN(Number(it.unitCost))) {
+              cogs = MoneyUtils.add(cogs, MoneyUtils.mul(Number(it.unitCost), it.qty));
+            } else {
+              missingCostItemsCount += 1;
+            }
+          });
+          grossSales = MoneyUtils.add(grossSales, invGross);
+          totalDiscounts = MoneyUtils.add(totalDiscounts, MoneyUtils.add(invLineDiscounts, inv.invoiceDiscount || 0));
+          recordedSales = MoneyUtils.add(recordedSales, inv.finalTotal);
+        });
+
+        const refunds = manualEntries
+          .filter(d => d.type === 'Cash Refund')
+          .reduce((s, d) => MoneyUtils.add(s, d.amount), 0);
+
+        const netSales = MoneyUtils.sub(recordedSales, refunds);
+        const totalPaymentsCollected = payments.reduce((s, p) => MoneyUtils.add(s, p.amount), 0);
+        const cashCollected = payments.filter(p => p.method === 'Cash').reduce((s, p) => MoneyUtils.add(s, p.amount), 0);
+        const cardCollected = payments.filter(p => p.method === 'Card').reduce((s, p) => MoneyUtils.add(s, p.amount), 0);
+        const bankCollected = payments.filter(p => p.method === 'Bank Transfer').reduce((s, p) => MoneyUtils.add(s, p.amount), 0);
+
+        const operatingExpenses = expenses.reduce((s, e) => MoneyUtils.add(s, e.amount), 0);
+        const totalPurchases = purchases.reduce((s, p) => MoneyUtils.add(s, p.totalAmount), 0);
+        const totalSupplierPayments = supplierPayments.reduce((s, sp) => MoneyUtils.add(s, sp.amount), 0);
+
+        const operational = {
+          startDate,
+          endDate,
+          recordedSales,
+          invoiceCount: invoices.length,
+          totalPaymentsCollected,
+          cashCollected,
+          cardCollected,
+          bankCollected,
+          operatingExpenses,
+          totalPurchases,
+          totalSupplierPayments,
+          totalCustomerReceivables: this.getTotalCustomerReceivables(),
+          totalSupplierPayables: this.getTotalSupplierPayables(),
+          closings,
+          invoices: invoices.map(i => this.getInvoiceEnriched(i)),
+          expenses
+        };
+
+        if (!includeOwnerFinancials) {
+          return { operational, ownerFinancials: null };
+        }
+
+        const estimatedGrossProfit = MoneyUtils.sub(netSales, cogs);
+        const estimatedNetProfit = MoneyUtils.sub(estimatedGrossProfit, operatingExpenses);
+
+        return {
+          operational,
+          ownerFinancials: {
+            grossSales,
+            totalDiscounts,
+            refunds,
+            netSales,
+            cogs,
+            missingCostItemsCount,
+            estimatedGrossProfit,
+            operatingExpenses,
+            estimatedNetProfit
+          }
+        };
+      }
+    };
+
+    /* =========================================================================
+       4. APPLICATION CONTROLLER & UI RENDERER
+       ========================================================================= */
+    const App = {
+      state: {
+        role: 'owner', // 'owner' | 'manager'
+        activeNav: 'dashboard',
+        salesSubTab: 'new-sale', // 'new-sale' | 'invoices' | 'customers' | 'products' | 'suppliers'
+        dailySubTab: 'closing', // 'entry' | 'payments' | 'expenses' | 'supplier-payments' | 'closing'
+        reportsSubTab: 'operational', // 'operational' | 'staff' | 'monthly' | 'owner-profit'
+        dashboardDate: getTodayISO(),
+        dailyDate: getTodayISO(),
+        reportRangePreset: 'month',
+        reportStartDate: getTodayISO().slice(0, 7) + '-01',
+        reportEndDate: getTodayISO(),
+        selectedMonth: getTodayISO().slice(0, 7),
+        saleDraft: null,
+        saleDirty: false
+      },
+
+      init() {
+        DataService.init();
+        this.resetSaleDraft();
+        this.syncBrandingText();
+      },
+
+      resetSaleDraft() {
+        const nextSeq = String(DataService.db.settings.nextInvoiceSeq || 1).padStart(4, '0');
+        const activeStaff = DataService.db.staff.find(s => s.active);
+        this.state.saleDraft = {
+          invoiceNumber: `${DataService.db.settings.invoicePrefix || 'CO-2026-'}${nextSeq}`,
+          date: getTodayISO(),
+          customerId: '',
+          customerName: '',
+          customerPhone: '',
+          customerAddress: '',
+          customerNotes: '',
+          staffId: activeStaff ? activeStaff.id : '',
+          items: [
+            { productId: '', name: '', category: 'Frames', brand: '', model: '', frameSize: '', color: '', lensType: '', qty: 1, unitPrice: 0, unitCost: null, discount: 0 }
+          ],
+          prescription: {
+            hasRx: false,
+            odSph: '', odCyl: '', odAxis: '',
+            osSph: '', osCyl: '', osAxis: '',
+            pd: '', frameSize: '', lensDetails: '', notes: ''
+          },
+          invoiceDiscount: 0,
+          initialPaymentAmount: 0,
+          paymentMethod: 'Cash',
+          notes: ''
+        };
+        this.state.saleDirty = false;
+      },
+
+      syncBrandingText() {
+        const shopName = DataService.db.settings.businessName || 'Cambridge Opticians';
+        const loginTitle = document.getElementById('login-shop-title');
+        if (loginTitle) loginTitle.textContent = shopName;
+        const sideTitle = document.getElementById('sidebar-shop-name');
+        if (sideTitle) sideTitle.textContent = shopName;
+        document.querySelectorAll('.logo-fallback').forEach(el => {
+          el.textContent = shopName;
+        });
+      },
+
+      toast(message, type = 'info') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+        const el = document.createElement('div');
+        el.className = `toast ${type}`;
+        el.textContent = message;
+        container.appendChild(el);
+        setTimeout(() => {
+          el.remove();
+        }, 3800);
+      },
+
+      escapeHtml(str) {
+        if (str === null || str === undefined) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      },
+
+      // --- Login & Role Management ---
+      fillLoginDemo(role) {
+        const sel = document.getElementById('login-username');
+        const pass = document.getElementById('login-password');
+        if (sel && pass) {
+          sel.value = role;
+          pass.value = role === 'owner' ? 'owner123' : 'demo123';
+          this.syncDemoPinHint();
+        }
+      },
+
+      syncDemoPinHint() {
+        const sel = document.getElementById('login-username');
+        const pass = document.getElementById('login-password');
+        if (sel && pass) {
+          pass.value = sel.value === 'owner' ? 'owner123' : 'demo123';
+        }
+      },
+
+      handleLogin(e) {
+        e.preventDefault();
+        const role = document.getElementById('login-username').value;
+        const pass = document.getElementById('login-password').value;
+        if (role === 'owner' && pass !== 'owner123') {
+          this.toast('Invalid Owner demo passcode. Use owner123', 'error');
+          return;
+        }
+        if (role === 'manager' && pass !== 'demo123') {
+          this.toast('Invalid Manager demo passcode. Use demo123', 'error');
+          return;
+        }
+        this.state.role = role;
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('app-shell').style.display = 'block';
+        this.applyRoleUI();
+        this.navigate('dashboard');
+        this.toast(`Signed in as ${role.toUpperCase()} (Demonstration Mode)`, 'success');
+      },
+
+      logout() {
+        if (this.state.saleDirty && !confirm('You have unsaved changes on the New Sale form. Sign out anyway?')) {
+          return;
+        }
+        document.getElementById('app-shell').style.display = 'none';
+        document.getElementById('login-screen').style.display = 'flex';
+      },
+
+      switchRole(newRole) {
+        this.state.role = newRole === 'owner' ? 'owner' : 'manager';
+        if (this.state.role === 'manager' && this.state.reportsSubTab === 'owner-profit') {
+          this.state.reportsSubTab = 'operational';
+        }
+        this.applyRoleUI();
+        this.renderActiveView();
+        this.toast(`Switched demo view to ${this.state.role.toUpperCase()} role`, 'info');
+      },
+
+      applyRoleUI() {
+        const badge = document.getElementById('sidebar-role-badge');
+        if (badge) {
+          badge.textContent = this.state.role === 'owner' ? 'OWNER (FULL ACCESS)' : 'MANAGER (OPERATIONS)';
+          badge.style.background = this.state.role === 'owner' ? '#fbbf24' : '#38bdf8';
+        }
+        const switcher = document.getElementById('quick-role-switcher');
+        if (switcher) switcher.value = this.state.role;
+      },
+
+      // --- Navigation ---
+      navigate(category, subTab = null) {
+        this.state.activeNav = category;
+        if (category === 'sales' && subTab) this.state.salesSubTab = subTab;
+        if (category === 'daily' && subTab) this.state.dailySubTab = subTab;
+        if (category === 'reports' && subTab) this.state.reportsSubTab = subTab;
+
+        document.querySelectorAll('.sidebar-nav .nav-item').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-nav') === category);
+        });
+
+        const headings = {
+          dashboard: ['Dashboard', 'Overview, Today’s Metrics & Quick Actions'],
+          sales: ['Sales & Customers', 'Create Invoices, Customer Directory, Inventory & Suppliers'],
+          daily: ['Daily Management', 'Daily Entries, Payments, Operating Expenses & Cash Closing'],
+          reports: ['Reports & Reviews', 'Staff Performance Rankings, Monthly Closing & Business Summaries'],
+          settings: ['Settings & Data Management', 'Shop Configuration, Categories, Staff Rewards & JSON Backups']
+        };
+        const [title, sub] = headings[category] || ['Dashboard', ''];
+        document.getElementById('topbar-heading').textContent = title;
+        document.getElementById('topbar-subheading').textContent = sub;
+
+        this.renderActiveView();
+      },
+
+      openNewSaleQuick() {
+        this.navigate('sales', 'new-sale');
+      },
+
+      renderActiveView() {
+        const mount = document.getElementById('main-view-mount');
+        if (!mount) return;
+        switch (this.state.activeNav) {
+          case 'dashboard':
+            mount.innerHTML = this.renderDashboardView();
+            break;
+          case 'sales':
+            mount.innerHTML = this.renderSalesSectionView();
+            break;
+          case 'daily':
+            mount.innerHTML = this.renderDailySectionView();
+            break;
+          case 'reports':
+            mount.innerHTML = this.renderReportsSectionView();
+            break;
+          case 'settings':
+            mount.innerHTML = this.renderSettingsSectionView();
+            break;
+        }
+      },
+
+      /* =======================================================================
+         SECTION 1: DASHBOARD VIEW
+         ======================================================================= */
+      renderDashboardView() {
+        const d = this.state.dashboardDate || getTodayISO();
+        const allInvoices = DataService.getAllInvoicesEnriched();
+        const dayInvoices = allInvoices.filter(inv => inv.date === d);
+        const todaySales = dayInvoices.reduce((s, i) => MoneyUtils.add(s, i.finalTotal), 0);
+
+        const dayPayments = DataService.db.payments.filter(p => p.date === d);
+        const paymentsCollectedToday = dayPayments.reduce((s, p) => MoneyUtils.add(s, p.amount), 0);
+
+        const outstandingCustomerBalances = DataService.getTotalCustomerReceivables();
+
+        const dayExpenses = DataService.db.expenses.filter(e => e.date === d);
+        const todayExpenses = dayExpenses.reduce((s, e) => MoneyUtils.add(s, e.amount), 0);
+
+        const pendingSupplierBalances = DataService.getTotalSupplierPayables();
+        const totalCustomers = DataService.db.customers.length;
+
+        // Best-performing staff member (this month)
+        const monthStart = d.slice(0, 7) + '-01';
+        const staffRank = DataService.getStaffRankings(monthStart, d);
+        let bestStaffLabel = 'No sales recorded';
+        let bestStaffSub = 'For current month';
+        if (staffRank.topPerformers.length === 1) {
+          bestStaffLabel = staffRank.topPerformers[0].name;
+          bestStaffSub = `${DataService.formatMoney(staffRank.topPerformers[0].totalSales)} (${staffRank.topPerformers[0].invoiceCount} inv)`;
+        } else if (staffRank.topPerformers.length > 1) {
+          bestStaffLabel = `Tie: ${staffRank.topPerformers.map(t => t.name.split(' ')[0]).join(' & ')}`;
+          bestStaffSub = `${DataService.formatMoney(staffRank.topPerformers[0].totalSales)} each`;
+        }
+
+        const recentInvoices = allInvoices.slice(0, 8);
+
+        return `
+          <div class="panel" style="margin-bottom: 20px;">
+            <div class="panel-body" style="padding: 14px 20px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+              <div style="display:flex; align-items:center; gap:12px;">
+                <span class="badge badge-neutral">DEMO DATA ACTIVE</span>
+                <span style="font-weight:600; color:var(--navy-dark);">Viewing Dashboard Figures for Date:</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <input type="date" value="${d}" onchange="App.setDashboardDate(this.value)" style="width:auto; padding:6px 12px;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="App.setDashboardDate('${getTodayISO()}')">Reset to Today</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8 LARGE MAIN DASHBOARD CARDS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">1. Today's Sales (${d})</div>
+                <div class="stat-value">${DataService.formatMoney(todaySales)}</div>
+                <div class="stat-sub">Recorded invoice sales</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">2. Invoices Today</div>
+                <div class="stat-value">${dayInvoices.length}</div>
+                <div class="stat-sub">Total saved invoices (${allInvoices.length} all-time)</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">3. Payments Collected Today</div>
+                <div class="stat-value">${DataService.formatMoney(paymentsCollectedToday)}</div>
+                <div class="stat-sub">${dayPayments.length} payment receipt(s)</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">4. Outstanding Customer Balances</div>
+                <div class="stat-value">${DataService.formatMoney(outstandingCustomerBalances)}</div>
+                <div class="stat-sub">Total pending customer receivables</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon red">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
+              </div>
+              <div class="stat-info">
+                <div class="stat-label">5. Today's Expenses</div>
+                <div class="stat-value">${DataService.formatMoney(todayExpenses)}</div>
+                <div class="stat-sub">${dayExpenses.length} expense entry(s) on ${d}</div>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon orange">
+                <svg viewBox="0 0 24
       --navy-950: #0a1628;
       --navy-900: #0f172a;
       --navy-800: #1e293b;
